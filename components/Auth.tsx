@@ -125,11 +125,11 @@ export default function Auth() {
     setGasToken(balFromSdk.data[0])
   }
 
-  function onGasTokenChange(e) {
+  function onGasTokenChange(e:any) {
     setGasToken(balances[e.target.value])
   }
 
-  function onTokenChange(e) {
+  function onTokenChange(e:any) {
     setSelectedToken(tokens[e.target.value])
   }
 
