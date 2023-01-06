@@ -25,8 +25,11 @@ export default function Home() {
 
   async function login() {
     if (!sdkRef.current) {
-      const socialLoginSDK = new SocialLogin()    
-      await socialLoginSDK.init(ethers.utils.hexValue(ChainId.POLYGON_MAINNET))
+      const socialLoginSDK = new SocialLogin() 
+      const signature1 = await socialLoginSDK.whitelistUrl('https://biconomy-app.vercel.app/');
+      await socialLoginSDK.init(ethers.utils.hexValue(ChainId.POLYGON_MAINNET),{
+        "https://biconomy-app.vercel.app/" : signature1,
+      })
       sdkRef.current = socialLoginSDK
     }
     if (!sdkRef.current.provider) {
