@@ -50,8 +50,8 @@ export default function Home() {
     )
     try {
       const smartAccount = new SmartAccount(web3Provider, {
-        activeNetworkId: ChainId.POLYGON_MAINNET,
-        supportedNetworksIds: [ChainId.POLYGON_MAINNET],
+        activeNetworkId: ChainId.GOERLI,
+      supportedNetworksIds: [ ChainId.GOERLI, ChainId.POLYGON_MAINNET, ChainId.POLYGON_MUMBAI]
       })
       await smartAccount.init()
       setSmartAccount(smartAccount)
