@@ -62,7 +62,7 @@ export default function Auth() {
   async function login() {
     if (!sdkRef.current) {
       const socialLoginSDK = new SocialLogin()    
-      await socialLoginSDK.init(ethers.utils.hexValue(ChainId.POLYGON_MAINNET))
+      await socialLoginSDK.init(ethers.utils.hexValue(ChainId.MAINNET))
       sdkRef.current = socialLoginSDK
     }
     if (!sdkRef.current.provider) {
@@ -234,7 +234,7 @@ export default function Auth() {
                 onChange={e => setAmount(e.target.value)}
                 className={inputStyle}
               />
-               <p>Choose which token you'd like to send</p>
+               <p>Choose which token you like to send</p>
               <select className={selectStyle} name='tokens' id='tokens' onChange={onTokenChange}>
                 {
                   tokens.map((token, index) => (
