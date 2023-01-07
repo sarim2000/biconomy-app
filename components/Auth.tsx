@@ -12,11 +12,10 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    let configureLogin:any
     if (interval) {
-      configureLogin = setInterval(() => {
+      let configureLogin = setInterval(async() => {
         if (!!sdkRef.current?.provider) {
-          setupSmartAccount()
+          await setupSmartAccount()
           clearInterval(configureLogin)
         }
       }, 1000)
@@ -26,15 +25,15 @@ export default function Home() {
   async function login() {
     if (!sdkRef.current) {
       const socialLoginSDK = new SocialLogin()    
-      await socialLoginSDK.init()
+      await socialLoginSDK.init(ethers.utils.hexValue(ChainId.POLYGON_MAINNET))
       sdkRef.current = socialLoginSDK
     }
     if (!sdkRef.current.provider) {
-      sdkRef.current.showConnectModal()
-      sdkRef.current.showWallet()
-      enableInterval(true)
+      await sdkRef.current.showConnectModal()
+      await sdkRef.current.showWallet()
+      await enableInterval(true)
     } else {
-      setupSmartAccount()
+      await setupSmartAccount()
     }
   }
 
