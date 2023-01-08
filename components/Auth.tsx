@@ -12,7 +12,7 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    let configureLogin
+    let configureLogin: any
     if (interval) {
       configureLogin = setInterval(() => {
         if (!!sdkRef.current?.provider) {
