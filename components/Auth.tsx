@@ -12,9 +12,9 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    let configureLogin
+    
     if (interval) {
-      configureLogin = setInterval(() => {
+      let configureLogin = setInterval(() => {
         if (!!sdkRef.current?.provider) {
           setupSmartAccount()
           clearInterval(configureLogin)
