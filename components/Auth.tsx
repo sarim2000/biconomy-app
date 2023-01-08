@@ -26,11 +26,11 @@ export default function Home() {
   async function login() {
     if (!sdkRef.current) {
       const socialLoginSDK = new SocialLogin()
-      const signature1 = await socialLoginSDK.whitelistUrl('https://biconomy-social-auth.vercel.app')
+      const signature1 = await socialLoginSDK.whitelistUrl('https://biconomy-app.vercel.app/')
       await socialLoginSDK.init({
         chainId: ethers.utils.hexValue(ChainId.POLYGON_MAINNET),
         whitelistUrls: {
-          'https://biconomy-social-auth.vercel.app': signature1,
+          'https://biconomy-app.vercel.app/': signature1,
         }
       })
       sdkRef.current = socialLoginSDK
