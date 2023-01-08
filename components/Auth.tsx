@@ -12,10 +12,11 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
+    let configureLogin : any
     if (interval) {
-      let configureLogin = setInterval(async() => {
+      configureLogin = setInterval(() => {
         if (!!sdkRef.current?.provider) {
-          await setupSmartAccount()
+          setupSmartAccount()
           clearInterval(configureLogin)
         }
       }, 1000)
@@ -24,16 +25,19 @@ export default function Home() {
 
   async function login() {
     if (!sdkRef.current) {
-      const socialLoginSDK = new SocialLogin()    
-      await socialLoginSDK.init(ethers.utils.hexValue(ChainId.POLYGON_MAINNET))
+      const socialLoginSDK = new SocialLogin()
+      const signature1 = await socialLoginSDK.whitelistUrl('https://biconomy-app.vercel.app/');
+      await socialLoginSDK.init(ethers.utils.hexValue(ChainId.POLYGON_MAINNET), {
+        'https://biconomy-app.vercel.app/': signature1,
+      })
       sdkRef.current = socialLoginSDK
     }
     if (!sdkRef.current.provider) {
-      await sdkRef.current.showConnectModal()
-      await sdkRef.current.showWallet()
-      await enableInterval(true)
+      sdkRef.current.showConnectModal()
+      sdkRef.current.showWallet()
+      enableInterval(true)
     } else {
-      await setupSmartAccount()
+      setupSmartAccount()
     }
   }
 
@@ -49,6 +53,7 @@ export default function Home() {
         activeNetworkId: ChainId.POLYGON_MAINNET,
         supportedNetworksIds: [ChainId.POLYGON_MAINNET],
       })
+
       await smartAccount.init()
       setSmartAccount(smartAccount)
       setLoading(false)
